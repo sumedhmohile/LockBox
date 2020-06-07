@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LockBox</string>
+    <string name="app_logo">LockBox Logo</string>
 </resources>
