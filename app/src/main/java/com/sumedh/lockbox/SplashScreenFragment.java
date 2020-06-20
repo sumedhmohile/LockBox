@@ -1,8 +1,6 @@
 package com.sumedh.lockbox;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +8,9 @@ import android.view.ViewGroup;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 
 public class SplashScreenFragment extends Fragment {
@@ -30,7 +31,10 @@ public class SplashScreenFragment extends Fragment {
         TimerTask splashScreenWaitTask = new TimerTask() {
             @Override
             public void run() {
-                Log.d(TAG, "Done with fragment wait");
+                RegisterFragment registerFragment = new RegisterFragment();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, registerFragment)
+                        .commit();
             }
         };
 

@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">LockBox</string>
     <string name="app_logo">LockBox Logo</string>
+    <string name="app_slogan">Protect your files. And Yourself</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="already_registered"><u>Already have an account? Login here.</u></string>
+    <string name="empty_field_error">Field cannot be empty</string>
+    <string name="field_length_error">Not long enough</string>
+    <string name="password_match_error">Password does not match</string>
+
 </resources>
