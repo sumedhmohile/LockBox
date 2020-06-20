@@ -1,7 +1,8 @@
 package com.sumedh.lockbox;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         SplashScreenFragment splashScreenFragment = new SplashScreenFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, splashScreenFragment)
+                .replace(R.id.fragment_container, splashScreenFragment)
                 .commit();
     }
 }
