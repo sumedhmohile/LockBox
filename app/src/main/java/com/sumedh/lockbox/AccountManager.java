@@ -18,7 +18,6 @@ public class AccountManager {
     public static void registerUser(String email, String password, final Activity activity) {
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -31,8 +30,8 @@ public class AccountManager {
                             Log.e(TAG, "Registration failed: " + task.getException());
                             Toast.makeText(activity.getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
+                        ProgressBarManager.dismissProgressBar();
                     }
                 });
-
     }
 }

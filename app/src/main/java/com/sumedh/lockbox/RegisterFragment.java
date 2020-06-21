@@ -2,7 +2,6 @@ package com.sumedh.lockbox;
 
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,7 @@ public class RegisterFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgressBarManager.showProgressBar(getResources().getString(R.string.register_progress_message), getFragmentManager());
                 String email = getAndValidateTextField(emailEditText);
                 String password = getAndValidateTextField(passwordEditText);
 
@@ -58,6 +58,7 @@ public class RegisterFragment extends Fragment {
         if (Validator.validateNotEmpty(textInput, getContext()) && Validator.validateLength(textInput, Constants.TEXT_FIELD_MIN_LENGTH, getContext())) {
             return textInput.getText().toString();
         }
+        ProgressBarManager.dismissProgressBar();
         return "";
     }
 }
