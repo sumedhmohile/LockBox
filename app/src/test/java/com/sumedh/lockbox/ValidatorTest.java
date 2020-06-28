@@ -83,4 +83,22 @@ public class ValidatorTest {
         PowerMockito.when(confirmEditableMock.toString()).thenReturn("other");
         Assert.assertFalse(Validator.validatePasswordMatch(passwordTextInputEditTextMock, confirmTextInputEditTextMock, context));
     }
+
+    @Test
+    public void testValidateNoBlanks() {
+        TextInputEditText textInputEditTextMock = PowerMockito.mock(TextInputEditText.class);
+        Editable editableMock = PowerMockito.mock(Editable.class);
+        PowerMockito.when(textInputEditTextMock.getText()).thenReturn(editableMock);
+        Context context = PowerMockito.mock(Context.class);
+        Resources resourcesMock = PowerMockito.mock(Resources.class);
+
+        PowerMockito.when(context.getResources()).thenReturn(resourcesMock);
+        PowerMockito.when(resourcesMock.getString(R.string.blank_in_text_error)).thenReturn("test error message");
+
+        PowerMockito.when(editableMock.toString()).thenReturn("some long string");
+        Assert.assertFalse(Validator.validateNoBlanks(textInputEditTextMock, context));
+
+        PowerMockito.when(editableMock.toString()).thenReturn("test");
+        Assert.assertTrue(Validator.validateNoBlanks(textInputEditTextMock, context));
+    }
 }

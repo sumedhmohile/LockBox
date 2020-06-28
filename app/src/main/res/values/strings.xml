@@ -12,5 +12,8 @@
     <string name="field_length_error">Not long enough</string>
     <string name="password_match_error">Password does not match</string>
     <string name="register_progress_message">Registering you</string>
+    <string name="blank_in_text_error">Field cannot have blank spaces</string>
+    <string name="username_exists_error">This username is already taken</string>
+    <string name="registration_success">Successfully registered. Welcome to LockBox!</string>
 
 </resources>
