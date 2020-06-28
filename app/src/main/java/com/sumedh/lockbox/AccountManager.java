@@ -1,6 +1,8 @@
 package com.sumedh.lockbox;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -45,6 +47,14 @@ public class AccountManager {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.registration_success), Toast.LENGTH_LONG).show();
                                         Log.i(TAG, "Successfully registered User " + user.toString());
+
+                                        SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString(Constants.USERNAME, user.getUsername());
+                                        editor.putString(Constants.EMAIL, user.getEmail());
+                                        editor.putString(Constants.USER_ID, user.getUserId());
+                                        editor.apply();
+
                                         ProgressBarManager.dismissProgressBar();
                                     }
                                 });
