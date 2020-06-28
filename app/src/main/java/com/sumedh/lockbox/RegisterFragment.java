@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
  */
 public class RegisterFragment extends Fragment {
 
+    private TextInputEditText usernameEditText;
     private TextInputEditText emailEditText;
     private TextInputEditText passwordEditText;
     private TextInputEditText confirmPasswordEditText;
@@ -32,6 +33,7 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
+        usernameEditText = view.findViewById(R.id.register_screen_username_text);
         emailEditText = view.findViewById(R.id.register_screen_email_text);
         passwordEditText = view.findViewById(R.id.register_screen_password_text);
         confirmPasswordEditText = view.findViewById(R.id.register_screen_password_confirm_text);
@@ -40,16 +42,16 @@ public class RegisterFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressBarManager.showProgressBar(getResources().getString(R.string.register_progress_message), getFragmentManager());
-                String email = getAndValidateTextField(emailEditText);
-                String password = getAndValidateTextField(passwordEditText);
-
-                if (Validator.validatePasswordMatch(passwordEditText, confirmPasswordEditText, getContext())) {
-                    AccountManager.registerUser(email, password, getActivity());
+                if (Validator.validatePasswordMatch(passwordEditText, confirmPasswordEditText, getContext()) && Validator.validateNoBlanks(usernameEditText, getContext())) {
+                    ProgressBarManager.showProgressBar(getResources().getString(R.string.register_progress_message), getFragmentManager());
+                    String username = getAndValidateTextField(usernameEditText);
+                    String email = getAndValidateTextField(emailEditText);
+                    String password = getAndValidateTextField(passwordEditText);
+                    User user = new User(username, email);
+                    AccountManager.registerUser(user, password, getActivity());
                 }
             }
         });
-
 
         return view;
     }
