@@ -127,7 +127,7 @@
                 android:textColor="@color/colorAccent"/>
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/register_screen_login_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"

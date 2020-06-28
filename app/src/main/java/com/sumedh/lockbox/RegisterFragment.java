@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -23,8 +24,14 @@ public class RegisterFragment extends Fragment {
     private TextInputEditText passwordEditText;
     private TextInputEditText confirmPasswordEditText;
     private Button registerButton;
+    private TextView loginText;
 
     public RegisterFragment() {}
+
+    public static RegisterFragment newInstance() {
+        RegisterFragment fragment = new RegisterFragment();
+        return fragment;
+    }
 
 
     @Override
@@ -38,6 +45,7 @@ public class RegisterFragment extends Fragment {
         passwordEditText = view.findViewById(R.id.register_screen_password_text);
         confirmPasswordEditText = view.findViewById(R.id.register_screen_password_confirm_text);
         registerButton = view.findViewById(R.id.register_button);
+        loginText = view.findViewById(R.id.register_screen_login_text);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +58,16 @@ public class RegisterFragment extends Fragment {
                     User user = new User(username, email);
                     AccountManager.registerUser(user, password, getActivity());
                 }
+            }
+        });
+
+        loginText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginFragment loginFragment = LoginFragment.newInstance();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, loginFragment)
+                        .commit();
             }
         });
 
