@@ -31,9 +31,9 @@ public class SplashScreenFragment extends Fragment {
         TimerTask splashScreenWaitTask = new TimerTask() {
             @Override
             public void run() {
-                RegisterFragment registerFragment = new RegisterFragment();
+                LoginFragment loginFragment = LoginFragment.newInstance();
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, registerFragment)
+                        .replace(R.id.fragment_container, loginFragment)
                         .commit();
             }
         };
