@@ -21,5 +21,8 @@
     <string name="invalid_credentials">Invalid credentials entered</string>
     <string name="generic_error">An unknown error occurred.</string>
     <string name="login_success">Welcome back!</string>
+    <string name="my_boxes">My Boxes</string>
+    <string name="recently_added">Recently Added</string>
+    <string name="popular_boxes">Popular</string>
 
 </resources>
