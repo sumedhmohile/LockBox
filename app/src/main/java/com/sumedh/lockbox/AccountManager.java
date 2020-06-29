@@ -24,11 +24,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 public class AccountManager {
     private static final String TAG = "AccountManager";
 
-    public static void registerUser(final User user, final String password, final Activity activity) {
+    public static void registerUser(final User user, final String password, final FragmentActivity activity) {
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -54,6 +55,7 @@ public class AccountManager {
                                         saveUserToSharedPreference(user, activity);
                                         ProgressBarManager.dismissProgressBar();
                                         Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                        routeToLanding(activity);
                                     }
                                 });
                             } else {
@@ -80,7 +82,7 @@ public class AccountManager {
 
     }
 
-    public static void loginUser(final User user, final String password, final Activity activity) {
+    public static void loginUser(final User user, final String password, final FragmentActivity activity) {
         Log.i(TAG, "Attempting login for user: " + user.toString());
 
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -111,6 +113,7 @@ public class AccountManager {
                                     user.setUserId(firebaseUser.getUid());
                                     saveUserToSharedPreference(user, activity);
                                     Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.login_success), Toast.LENGTH_LONG).show();
+                                    routeToLanding(activity);
                                 }
                                 else {
                                     Log.e(TAG, "Error when logging in. Exception: " + task.getException());
@@ -147,5 +150,13 @@ public class AccountManager {
         editor.putString(Constants.EMAIL, user.getEmail());
         editor.putString(Constants.USER_ID, user.getUserId());
         editor.apply();
+    }
+
+    private static void routeToLanding(FragmentActivity activity) {
+        Log.i(TAG, "Routing to landing screen");
+        LandingFragment landingFragment = LandingFragment.newInstance();
+        activity.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, landingFragment)
+                .commit();
     }
 }

@@ -1,5 +1,7 @@
 package com.sumedh.lockbox;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,10 +33,22 @@ public class SplashScreenFragment extends Fragment {
         TimerTask splashScreenWaitTask = new TimerTask() {
             @Override
             public void run() {
-                LoginFragment loginFragment = LoginFragment.newInstance();
-                getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, loginFragment)
-                        .commit();
+
+                SharedPreferences preferences = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+                String username = preferences.getString(Constants.USER_ID, "NONE");
+
+                if(username.equalsIgnoreCase("NONE")) {
+                    LoginFragment loginFragment = LoginFragment.newInstance();
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, loginFragment)
+                            .commit();
+                }
+                else {
+                    LandingFragment landingFragment = LandingFragment.newInstance();
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, landingFragment)
+                            .commit();
+                }
             }
         };
 
