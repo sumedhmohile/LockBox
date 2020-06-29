@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <item
+        android:id="@+id/my_boxes_navigation_button"
+        android:enabled="true"
+        android:icon="@drawable/my_boxes_icon"
+        android:title="@string/my_boxes"/>
+    <item
+        android:id="@+id/recently_added_navigation_button"
+        android:enabled="true"
+        android:icon="@drawable/recently_added_icon"
+        android:title="@string/recently_added"/>
+    <item
+        android:id="@+id/popular_boxes_navigation_button"
+        android:enabled="true"
+        android:icon="@drawable/popular_icon"
+        android:title="@string/popular_boxes"/>
+</menu>
