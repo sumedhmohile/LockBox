@@ -14,9 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RegisterFragment extends Fragment {
 
     private TextInputEditText usernameEditText;
