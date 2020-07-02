@@ -48,7 +48,7 @@ public class AccountManager {
                                 Log.i(TAG, "Successfully registered in firebase auth User " + firebaseUser.getEmail());
                                 user.setUserId(firebaseUser.getUid());
                                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                database.child("users").child(user.getUserId()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                database.child(Constants.USERS).child(user.getUserId()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Log.i(TAG, "Successfully registered User " + user.toString());
