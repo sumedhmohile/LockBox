@@ -20,7 +20,7 @@ public class BoxManager {
     public static Box createBox(final User owner, String name, CheckInFrequency checkInFrequency) {
         final Box box = new Box(owner.getUsername(), name, checkInFrequency);
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child("boxes").child(owner.getUserId()).child(box.getBoxId()).setValue(box).addOnCompleteListener(new OnCompleteListener<Void>() {
+        database.child(Constants.BOXES).child(owner.getUserId()).child(box.getBoxId()).setValue(box).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
@@ -36,7 +36,7 @@ public class BoxManager {
 
     public static void deleteBox(User owner, final String boxId) {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        Query deleteQuery = database.child("boxes").child(owner.getUserId()).orderByChild("boxId").equalTo(boxId);
+        Query deleteQuery = database.child(Constants.BOXES).child(owner.getUserId()).orderByChild(Constants.BOX_ID).equalTo(boxId);
 
         deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
