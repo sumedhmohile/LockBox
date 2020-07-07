@@ -58,7 +58,7 @@ public class Box {
 
     @Override
     public String toString() {
-        return String.format("<Box: boxId: " + boxId + " | name: " + name + ">");
+        return "<Box: boxId: " + boxId + " | name: " + name + ">";
     }
 
 }
