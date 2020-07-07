@@ -1,5 +1,7 @@
 package com.sumedh.lockbox;
 
+import android.net.Uri;
+
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,7 @@ public class Box {
     private String boxId;
     private String ownerName;
     private String name;
-    private List<File> files;
+    private List<String> files;
 
     public String getOwnerName() {
         return ownerName;
@@ -23,7 +25,7 @@ public class Box {
         return name;
     }
 
-    public List<File> getFiles() {
+    public List<String> getFiles() {
         return files;
     }
 
@@ -49,4 +51,14 @@ public class Box {
         this.creationDate = new Date();
         this.checkInFrequency = checkInFrequency;
     }
+
+    public void setFiles(List<String> files) {
+        this.files = files;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("<Box: boxId: " + boxId + " | name: " + name + ">");
+    }
+
 }
