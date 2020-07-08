@@ -45,7 +45,7 @@ public class Validator {
 
     public static boolean validateNoBlanks(TextInputEditText inputEditText, Context context) {
         if (Validator.validateNotEmpty(inputEditText, context)) {
-            if (!inputEditText.getText().toString().contains(" ")) {
+            if (!inputEditText.getText().toString().contains(Constants.BLANK_SPACE)) {
                 return true;
             } else {
                 inputEditText.setError(context.getResources().getString(R.string.blank_in_text_error));
