@@ -53,6 +53,7 @@ public class BoxListAdapter extends BaseAdapter {
             TextView boxFileCountTextView = convertView.findViewById(R.id.box_file_count);
             TextView boxLastCheckIn = convertView.findViewById(R.id.box_last_checkin);
             TextView boxCheckinDeadline = convertView.findViewById(R.id.checkin_deadline);
+            TextView boxFileLabel = convertView.findViewById(R.id.file_label);
 
             Box box = boxes.get(position);
 
@@ -60,6 +61,13 @@ public class BoxListAdapter extends BaseAdapter {
             boxOwnerTextView.setText(box.getOwnerName());
             boxCheckinFrequencyTextView.setText(box.getCheckInFrequency().name());
             boxFileCountTextView.setText(String.format("%d", box.getFiles().size()));
+
+            if(box.getFiles().size() > 1) {
+                boxFileLabel.setText(layoutInflater.getContext().getResources().getString(R.string.files));
+            }
+            else {
+                boxFileLabel.setText(layoutInflater.getContext().getResources().getString(R.string.file));
+            }
 
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
