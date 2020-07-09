@@ -55,7 +55,7 @@ public class AccountManager {
                                         saveUserToSharedPreference(user, activity);
                                         ProgressBarManager.dismissProgressBar();
                                         Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.registration_success), Toast.LENGTH_LONG).show();
-                                        routeToLanding(activity);
+                                        routeToLanding(activity, user);
                                     }
                                 });
                             } else {
@@ -113,7 +113,7 @@ public class AccountManager {
                                     user.setUserId(firebaseUser.getUid());
                                     saveUserToSharedPreference(user, activity);
                                     Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.login_success), Toast.LENGTH_LONG).show();
-                                    routeToLanding(activity);
+                                    routeToLanding(activity, user);
                                 }
                                 else {
                                     Log.e(TAG, "Error when logging in. Exception: " + task.getException());
@@ -152,9 +152,9 @@ public class AccountManager {
         editor.apply();
     }
 
-    private static void routeToLanding(FragmentActivity activity) {
+    private static void routeToLanding(FragmentActivity activity, User user) {
         Log.i(TAG, "Routing to landing screen");
-        LandingFragment landingFragment = LandingFragment.newInstance();
+        LandingFragment landingFragment = LandingFragment.newInstance(user);
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, landingFragment)
                 .commit();

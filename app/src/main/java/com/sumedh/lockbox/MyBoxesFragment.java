@@ -4,20 +4,33 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-public class LandingFragment extends Fragment {
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link MyBoxesFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class MyBoxesFragment extends Fragment {
+
+    public final String TAG = "MyBoxesFragment";
 
     private User user;
 
-    public LandingFragment() {
+    public MyBoxesFragment() {
         // Required empty public constructor
     }
 
-    public static LandingFragment newInstance(User user) {
-        LandingFragment fragment = new LandingFragment();
+    public static MyBoxesFragment newInstance(User user) {
+        MyBoxesFragment fragment = new MyBoxesFragment();
         Bundle args = new Bundle();
         args.putString(Constants.USERNAME, user.getUsername());
         args.putString(Constants.EMAIL, user.getEmail());
@@ -43,12 +56,22 @@ public class LandingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_landing, container, false);
+        View view = inflater.inflate(R.layout.fragment_my_boxes, container, false);
 
+        ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_boxes), getFragmentManager());
+        BoxManager.loadBoxesForUser(user, view);
 
-        getFragmentManager().beginTransaction()
-                .replace(R.id.landing_screen_container, MyBoxesFragment.newInstance(user))
-                .commit();
+        FloatingActionButton addBoxButton = view.findViewById(R.id.add_box_fab);
+        addBoxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddBoxFragment addBoxFragment = AddBoxFragment.newInstance(user);
+
+                addBoxFragment.show(getFragmentManager(), "AddBoxFragment");
+            }
+        });
+
         return view;
+
     }
 }

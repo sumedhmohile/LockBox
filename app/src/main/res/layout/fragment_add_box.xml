@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddBoxFragment"
+    android:padding="10dp">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_box_name_layout"
+        android:theme="@style/TextInputLayoutAppearanceDark">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/box_name"
+            android:textColorHint="@color/colorPrimary"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/add_box_name_text"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/add_box_name_layout"
+        android:layout_below="@+id/add_box_name_layout"
+        android:text="@string/frequency"
+        android:layout_margin="10dp"
+        android:textSize="18sp"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignEnd="@id/add_box_name_layout"
+        android:layout_below="@+id/add_box_name_layout"
+        android:id="@+id/add_box_frequency_spinner"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_boxes_file_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/add_files"
+        android:textColor="@color/colorAccent"
+        android:layout_alignStart="@+id/add_box_name_layout"
+        android:layout_below="@+id/add_box_frequency_spinner"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_boxes_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/add_box"
+        android:textColor="@color/colorAccent"
+        android:layout_alignStart="@+id/add_box_name_layout"
+        android:layout_below="@+id/add_boxes_file_button" />
+
+</RelativeLayout>
