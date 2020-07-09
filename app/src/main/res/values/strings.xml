@@ -33,8 +33,6 @@
     <string name="add_box_failed">We are unable to add this box right now. Please try again later.</string>
     <string name="add_box_success">Added new box!</string>
     <string name="loading_boxes">Loading your boxes</string>
-
-    <string name="tmp">\t\tDaily\nFrequency</string>
-    <string name="tmp2">01/07/2020\nLast Check In</string>
-    <string name="tmp3">4 Hours\nDeadline</string>
+    <string name="file">File</string>
+    <string name="files">Files</string>
 </resources>
