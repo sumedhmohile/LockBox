@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="15dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Box Name"
+                android:textColor="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/box_name_text"
+                android:textSize="25sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/box_file_count"
+                android:text="10"
+                android:textColor="@color/colorAccent"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/box_file_count"
+                android:textColor="@color/colorAccent"
+                android:text="Files"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/box_name_text"
+                android:text="Owner Name"
+                app:layout_constraintTop_toBottomOf="@id/box_name_text"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:layout_margin="10dp"
+                android:id="@+id/box_owner"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/box_checkin_frequency"
+                android:text="@string/tmp"
+                app:layout_constraintTop_toBottomOf="@+id/box_owner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/colorAccent"
+                android:layout_margin="10dp"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/box_last_checkin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tmp2"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/box_checkin_frequency"
+                app:layout_constraintTop_toBottomOf="@+id/box_owner" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkin_deadline"
+                android:text="@string/tmp3"
+                app:layout_constraintTop_toBottomOf="@+id/box_owner"
+                app:layout_constraintStart_toEndOf="@id/box_last_checkin"
+                android:textColor="@color/colorAccent"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="50dp"
+                android:textSize="12sp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

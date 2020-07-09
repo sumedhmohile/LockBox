@@ -24,4 +24,17 @@
     <string name="my_boxes">My Boxes</string>
     <string name="recently_added">Recently Added</string>
     <string name="popular_boxes">Popular</string>
+    <string name="box_name">Box name</string>
+    <string name="add_files">Add Files</string>
+    <string name="add_box">Add Box</string>
+    <string name="frequency">Frequency</string>
+    <string name="not_enough_files">Not enough files</string>
+    <string name="adding_box">Adding box</string>
+    <string name="add_box_failed">We are unable to add this box right now. Please try again later.</string>
+    <string name="add_box_success">Added new box!</string>
+    <string name="loading_boxes">Loading your boxes</string>
+
+    <string name="tmp">\t\tDaily\nFrequency</string>
+    <string name="tmp2">01/07/2020\nLast Check In</string>
+    <string name="tmp3">4 Hours\nDeadline</string>
 </resources>
