@@ -67,9 +67,9 @@ public class Box {
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         switch (checkInFrequency) {
-            case DAILY: c.add(Calendar.DATE, 2);break;
-            case WEEKLY: c.add(Calendar.DATE, 7);break;
-            case MONTHLY: c.add(Calendar.MONTH, 2);break;
+            case Daily: c.add(Calendar.DATE, 2);break;
+            case Weekly: c.add(Calendar.DATE, 7);break;
+            case Monthly: c.add(Calendar.MONTH, 2);break;
         }
         return c.getTime();
     }

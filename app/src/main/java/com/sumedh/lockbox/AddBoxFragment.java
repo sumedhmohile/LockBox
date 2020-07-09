@@ -88,7 +88,8 @@ public class AddBoxFragment extends DialogFragment {
                     if(files.size() > 0) {
                         Log.i(TAG, "User: " + user.toString());
                         ProgressBarManager.showProgressBar(getResources().getString(R.string.adding_box), getFragmentManager());
-                        Box box = BoxManager.createBox(user, boxNameEditText.getText().toString(), files, CheckInFrequency.DAILY, getContext());
+                        CheckInFrequency checkInFrequency = CheckInFrequency.valueOf((String) frequencySpinner.getSelectedItem());
+                        Box box = BoxManager.createBox(user, boxNameEditText.getText().toString(), files, checkInFrequency, getContext());
                         dismiss();
                     }
                     else {
