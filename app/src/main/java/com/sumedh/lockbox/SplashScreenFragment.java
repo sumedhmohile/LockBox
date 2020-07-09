@@ -35,16 +35,18 @@ public class SplashScreenFragment extends Fragment {
             public void run() {
 
                 SharedPreferences preferences = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-                String username = preferences.getString(Constants.USER_ID, "NONE");
+                String userId = preferences.getString(Constants.USER_ID, "NONE");
 
-                if(username.equalsIgnoreCase("NONE")) {
+                if(userId.equalsIgnoreCase("NONE")) {
                     LoginFragment loginFragment = LoginFragment.newInstance();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, loginFragment)
                             .commit();
                 }
                 else {
-                    LandingFragment landingFragment = LandingFragment.newInstance();
+                    User user = new User(preferences.getString(Constants.USERNAME, ""), preferences.getString(Constants.EMAIL, ""));
+                    user.setUserId(userId);
+                    LandingFragment landingFragment = LandingFragment.newInstance(user);
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, landingFragment)
                             .commit();
