@@ -1,6 +1,14 @@
 package com.sumedh.lockbox;
 
 public class User {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     private String username;
     private String email;
     private String userId;
@@ -29,5 +37,9 @@ public class User {
     User(String username, String email) {
         this.username = username;
         this.email = email;
+    }
+
+    User() {
+
     }
 }
