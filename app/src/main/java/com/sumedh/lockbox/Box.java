@@ -17,7 +17,6 @@ public class Box {
     private Date creationDate;
     private CheckInFrequency checkInFrequency;
     private Date lastCheckInDate;
-
     private Date unlockDate;
 
     public String getOwnerName() {
