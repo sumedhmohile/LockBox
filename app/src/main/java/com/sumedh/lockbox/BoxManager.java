@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -79,31 +80,68 @@ public class BoxManager {
         return box;
     }
 
-    public static void deleteBox(User owner, final String boxId) {
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        Query deleteQuery = database.child(Constants.BOXES).child(owner.getUserId()).orderByChild(Constants.BOX_ID).equalTo(boxId);
+    public static void deleteBox(final Box box) {
+        final String boxId = box.getBoxId();
 
-        deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
+        Query boxOwnerQuery = database.child(Constants.USERS).orderByChild(Constants.USERNAME).equalTo(box.getOwnerName());
+        boxOwnerQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getValue() != null) {
-                    snapshot.getRef().child(boxId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()) {
-                                Log.i(TAG, "Deleted box " + boxId + " successfully");
-                            }
+                Log.i(TAG, snapshot.getValue().toString());
+                Log.i(TAG, "USER: " + snapshot.getValue(User.class));
+                final User user = snapshot.getChildren().iterator().next().getValue(User.class);
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference().child(Constants.BOXES).child(user.getUserId()).child(box.getBoxId());
+                Log.i(TAG, "Location: " + storageRef.getPath());
+
+                storageRef.listAll().addOnCompleteListener(new OnCompleteListener<ListResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ListResult> task) {
+                        for (StorageReference ref : task.getResult().getItems()) {
+                            ref.delete();
                         }
-                    });
-                }
-                else {
-                    Log.e(TAG, "No such box");
-                }
+                    }
+                });
+
+                Query deleteQuery = database.child(Constants.BOXES).child(user.getUserId()).orderByChild(Constants.BOX_ID).equalTo(boxId);
+
+                deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.getValue() != null) {
+                            snapshot.getRef().child(boxId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.i(TAG, "Deleted box " + boxId + " successfully");
+                                    }
+                                }
+                            });
+                        } else {
+                            Log.e(TAG, "No such box");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e(TAG, "Deletion cancelled");
+                    }
+                });
+                storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()) {
+                            Log.i(TAG, "Successfully deleted files");
+                        }
+                    }
+                });
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e(TAG, "Deletion cancelled");
             }
         });
     }

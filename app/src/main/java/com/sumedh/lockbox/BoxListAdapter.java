@@ -1,6 +1,9 @@
 package com.sumedh.lockbox;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +18,14 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BoxListAdapter extends BaseAdapter {
 
     private List<Box> boxes;
     private LayoutInflater layoutInflater;
+    private String TAG = "BoxListAdapter";
 
     public BoxListAdapter(Context context, List<Box> boxes) {
         this.boxes = boxes;
@@ -54,8 +59,9 @@ public class BoxListAdapter extends BaseAdapter {
             TextView boxLastCheckIn = convertView.findViewById(R.id.box_last_checkin);
             TextView boxCheckinDeadline = convertView.findViewById(R.id.checkin_deadline);
             TextView boxFileLabel = convertView.findViewById(R.id.file_label);
+            CardView boxCard = convertView.findViewById(R.id.box_card);
 
-            Box box = boxes.get(position);
+            final Box box = boxes.get(position);
 
             boxNameTextView.setText(box.getName());
             boxOwnerTextView.setText(box.getOwnerName());
@@ -74,6 +80,38 @@ public class BoxListAdapter extends BaseAdapter {
             boxLastCheckIn.setText(sdf.format(box.getLastCheckInDate()));
 
             boxCheckinDeadline.setText(TimeUnit.HOURS.convert(box.getUnlockDate().getTime() - box.getLastCheckInDate().getTime(), TimeUnit.MILLISECONDS) + "");
+
+            boxCard.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(layoutInflater.getContext());
+                    builder.setMessage("Box Action").setPositiveButton("Check In", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.i(TAG, "Going to check in");
+                        }
+                    }).setNegativeButton("Delete Box", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Log.i(TAG, "Going to delete");
+                            AlertDialog.Builder confirmationDialogBuilder = new AlertDialog.Builder(layoutInflater.getContext());
+                            confirmationDialogBuilder.setMessage("Are you sure?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Log.i(TAG, "Actually deleting");
+                                    BoxManager.deleteBox(box);
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Log.i(TAG, "Not deleting");
+                                }
+                            }).show();
+                        }
+                    }).show();
+                    return true;
+                }
+            });
 
         }
 
