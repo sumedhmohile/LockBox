@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BoxListAdapter extends BaseAdapter {
@@ -26,10 +27,12 @@ public class BoxListAdapter extends BaseAdapter {
     private List<Box> boxes;
     private LayoutInflater layoutInflater;
     private String TAG = "BoxListAdapter";
+    private FragmentManager fragmentManager;
 
-    public BoxListAdapter(Context context, List<Box> boxes) {
+    public BoxListAdapter(Context context, List<Box> boxes, FragmentManager fragmentManager) {
         this.boxes = boxes;
         this.layoutInflater = LayoutInflater.from(context);
+        this.fragmentManager = fragmentManager;
     }
 
     @Override
@@ -99,6 +102,7 @@ public class BoxListAdapter extends BaseAdapter {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Log.i(TAG, "Actually deleting");
+                                    ProgressBarManager.showProgressBar(layoutInflater.getContext().getResources().getString(R.string.deleting_box), fragmentManager);
                                     BoxManager.deleteBox(box);
                                 }
                             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -112,10 +116,7 @@ public class BoxListAdapter extends BaseAdapter {
                     return true;
                 }
             });
-
         }
-
-
         return convertView;
     }
 }

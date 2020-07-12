@@ -3,6 +3,7 @@ package com.sumedh.lockbox;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,18 +57,25 @@ public class MyBoxesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_boxes, container, false);
+        final View view = inflater.inflate(R.layout.fragment_my_boxes, container, false);
 
         ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_boxes), getFragmentManager());
-        BoxManager.loadBoxesForUser(user, view);
+        BoxManager.loadBoxesForUser(user, view, getFragmentManager());
 
         FloatingActionButton addBoxButton = view.findViewById(R.id.add_box_fab);
         addBoxButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AddBoxFragment addBoxFragment = AddBoxFragment.newInstance(user);
-
                 addBoxFragment.show(getFragmentManager(), "AddBoxFragment");
+            }
+        });
+
+        SwipeRefreshLayout myBoxesLayout = view.findViewById(R.id.my_boxes_layout);
+        myBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                BoxManager.loadBoxesForUser(user, view, getFragmentManager());
             }
         });
 
