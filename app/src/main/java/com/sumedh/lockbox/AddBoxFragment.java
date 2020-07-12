@@ -104,6 +104,7 @@ public class AddBoxFragment extends DialogFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        files.clear();
         if (requestCode == 1) {
             if(resultCode == -1) {
                 if(data.getData() != null) {
