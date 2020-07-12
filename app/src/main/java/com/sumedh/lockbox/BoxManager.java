@@ -36,7 +36,7 @@ public class BoxManager {
     static String TAG = "BoxManager";
 
     public static Box createBox(final User owner, String name, final List<Uri> fileList, CheckInFrequency checkInFrequency, final Context context) {
-        final Box box = new Box(owner.getUsername(), name, checkInFrequency);
+        final Box box = new Box(owner.getUsername(), name, checkInFrequency, owner.getUserId());
         List<String> strings = new ArrayList<>();
         for(Uri uri : fileList) {
             strings.add(uri.toString());
@@ -87,59 +87,44 @@ public class BoxManager {
 
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-        Query boxOwnerQuery = database.child(Constants.USERS).orderByChild(Constants.USERNAME).equalTo(box.getOwnerName());
-        boxOwnerQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference().child(Constants.BOXES).child(box.getOwnerId()).child(box.getBoxId());
+        Log.i(TAG, "Location: " + storageRef.getPath());
+
+        storageRef.listAll().addOnCompleteListener(new OnCompleteListener<ListResult>() {
+            @Override
+            public void onComplete(@NonNull Task<ListResult> task) {
+                for (StorageReference ref : task.getResult().getItems()) {
+                    Log.i(TAG, "Going to delete: " + ref.getPath());
+                    ref.delete();
+                }
+            }
+        });
+
+        Query deleteQuery = database.child(Constants.BOXES).child(box.getOwnerId()).orderByChild(Constants.BOX_ID).equalTo(boxId);
+
+        deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.i(TAG, snapshot.getValue().toString());
-                Log.i(TAG, "USER: " + snapshot.getValue(User.class));
-                final User user = snapshot.getChildren().iterator().next().getValue(User.class);
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                StorageReference storageRef = storage.getReference().child(Constants.BOXES).child(user.getUserId()).child(box.getBoxId());
-                Log.i(TAG, "Location: " + storageRef.getPath());
-
-                storageRef.listAll().addOnCompleteListener(new OnCompleteListener<ListResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<ListResult> task) {
-                        for (StorageReference ref : task.getResult().getItems()) {
-                            Log.i(TAG, "Going to delete: " + ref.getPath());
-                            ref.delete();
+                if (snapshot.getValue() != null) {
+                    snapshot.getRef().child(boxId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.i(TAG, "Deleted box " + boxId + " successfully");
+                                ProgressBarManager.dismissProgressBar();
+                            }
                         }
-                    }
-                });
-
-                Query deleteQuery = database.child(Constants.BOXES).child(user.getUserId()).orderByChild(Constants.BOX_ID).equalTo(boxId);
-
-                deleteQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.getValue() != null) {
-                            snapshot.getRef().child(boxId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Log.i(TAG, "Deleted box " + boxId + " successfully");
-                                        ProgressBarManager.dismissProgressBar();
-                                    }
-                                }
-                            });
-                        } else {
-                            Log.e(TAG, "No such box");
-                            ProgressBarManager.dismissProgressBar();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e(TAG, "Deletion cancelled");
-                        ProgressBarManager.dismissProgressBar();
-                    }
-                });
-
+                    });
+                } else {
+                    Log.e(TAG, "No such box");
+                    ProgressBarManager.dismissProgressBar();
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "Deletion cancelled");
                 ProgressBarManager.dismissProgressBar();
             }
         });

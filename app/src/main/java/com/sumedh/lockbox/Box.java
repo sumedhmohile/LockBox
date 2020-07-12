@@ -18,6 +18,7 @@ public class Box {
     private CheckInFrequency checkInFrequency;
     private Date lastCheckInDate;
     private Date unlockDate;
+    private String ownerId;
 
     public String getOwnerName() {
         return ownerName;
@@ -52,7 +53,7 @@ public class Box {
 
     }
 
-    public Box(String ownerName, String name, CheckInFrequency checkInFrequency) {
+    public Box(String ownerName, String name, CheckInFrequency checkInFrequency, String ownerId) {
         this.boxId = UUID.randomUUID().toString();
         this.ownerName = ownerName;
         this.name = name;
@@ -60,6 +61,7 @@ public class Box {
         this.lastCheckInDate = new Date();
         this.checkInFrequency = checkInFrequency;
         this.unlockDate = getDateFromFrequency(checkInFrequency);
+        this.ownerId = ownerId;
     }
 
     private Date getDateFromFrequency(CheckInFrequency checkInFrequency) {
@@ -74,6 +76,14 @@ public class Box {
     }
     public void setFiles(List<String> files) {
         this.files = files;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     @Override
