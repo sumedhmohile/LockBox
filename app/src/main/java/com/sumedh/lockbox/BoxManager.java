@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class BoxManager {
 
@@ -100,6 +102,7 @@ public class BoxManager {
                     @Override
                     public void onComplete(@NonNull Task<ListResult> task) {
                         for (StorageReference ref : task.getResult().getItems()) {
+                            Log.i(TAG, "Going to delete: " + ref.getPath());
                             ref.delete();
                         }
                     }
@@ -116,25 +119,20 @@ public class BoxManager {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Log.i(TAG, "Deleted box " + boxId + " successfully");
+                                        ProgressBarManager.dismissProgressBar();
                                     }
                                 }
                             });
                         } else {
                             Log.e(TAG, "No such box");
+                            ProgressBarManager.dismissProgressBar();
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                         Log.e(TAG, "Deletion cancelled");
-                    }
-                });
-                storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()) {
-                            Log.i(TAG, "Successfully deleted files");
-                        }
+                        ProgressBarManager.dismissProgressBar();
                     }
                 });
 
@@ -142,11 +140,12 @@ public class BoxManager {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                ProgressBarManager.dismissProgressBar();
             }
         });
     }
 
-    public static void loadBoxesForUser(User user, final View view) {
+    public static void loadBoxesForUser(User user, final View view, final FragmentManager fragmentManager) {
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final List<Box> boxes = new ArrayList<>();
         Query userBoxesQuery = database.child(Constants.BOXES).child(user.getUserId()).orderByChild(Constants.USERNAME);
@@ -158,9 +157,13 @@ public class BoxManager {
                     boxes.add(snap.getValue(Box.class));
                 }
                 ListView listView = view.findViewById(R.id.my_boxes_screen_listview);
-                BoxListAdapter boxListAdapter = new BoxListAdapter(view.getContext(), boxes);
+                BoxListAdapter boxListAdapter = new BoxListAdapter(view.getContext(), boxes, fragmentManager);
                 listView.setAdapter(boxListAdapter);
                 ProgressBarManager.dismissProgressBar();
+                if (view.findViewById(R.id.my_boxes_layout) != null) {
+                    SwipeRefreshLayout layout = view.findViewById(R.id.my_boxes_layout);
+                    layout.setRefreshing(false);
+                }
             }
 
             @Override
