@@ -35,4 +35,6 @@
     <string name="loading_boxes">Loading your boxes</string>
     <string name="file">File</string>
     <string name="files">Files</string>
+    <string name="deleting_box">Deleting Box</string>
+
 </resources>
