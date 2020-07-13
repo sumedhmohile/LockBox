@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +23,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -155,6 +155,25 @@ public class BoxManager {
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.i(TAG, "Error: " + error);
                 ProgressBarManager.dismissProgressBar();
+            }
+        });
+    }
+
+    public static void checkinBox(Box box, final Context context) {
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        database.child(Constants.BOXES).child(box.getOwnerId()).child(box.getBoxId()).child("lastCheckInDate").setValue(new Date()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()) {
+                    Log.i(TAG, "Updated checkin");
+                    ProgressBarManager.dismissProgressBar();
+                    Toast.makeText(context, context.getResources().getString(R.string.checkin_box_success), Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Log.i(TAG, "Update checkin failed: " + task.getException());
+                    ProgressBarManager.dismissProgressBar();
+                    Toast.makeText(context, context.getResources().getString(R.string.checkin_box_failed), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
