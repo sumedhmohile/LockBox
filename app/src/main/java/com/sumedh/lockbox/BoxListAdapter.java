@@ -92,6 +92,20 @@ public class BoxListAdapter extends BaseAdapter {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Log.i(TAG, "Going to check in");
+                            AlertDialog.Builder confirmationDialogBuilder = new AlertDialog.Builder(layoutInflater.getContext());
+                            confirmationDialogBuilder.setMessage("Are you sure?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Log.i(TAG, "Actually checking in");
+                                    ProgressBarManager.showProgressBar(layoutInflater.getContext().getResources().getString(R.string.checkin_box), fragmentManager);
+                                    BoxManager.checkinBox(box, layoutInflater.getContext());
+                                }
+                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Log.i(TAG, "Not Checking in");
+                                }
+                            }).show();
                         }
                     }).setNegativeButton("Delete Box", new DialogInterface.OnClickListener() {
                         @Override
