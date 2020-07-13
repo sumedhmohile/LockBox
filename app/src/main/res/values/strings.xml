@@ -36,5 +36,8 @@
     <string name="file">File</string>
     <string name="files">Files</string>
     <string name="deleting_box">Deleting Box</string>
+    <string name="checkin_box">Checking in</string>
+    <string name="checkin_box_success">Successfully checked in!</string>
+    <string name="checkin_box_failed">An error occurred when checking in. Please try again later.</string>
 
 </resources>
