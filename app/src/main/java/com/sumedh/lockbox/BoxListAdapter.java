@@ -93,14 +93,14 @@ public class BoxListAdapter extends BaseAdapter {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Log.i(TAG, "Going to check in");
                             AlertDialog.Builder confirmationDialogBuilder = new AlertDialog.Builder(layoutInflater.getContext());
-                            confirmationDialogBuilder.setMessage("Are you sure?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            confirmationDialogBuilder.setMessage("Are you sure?").setPositiveButton(layoutInflater.getContext().getString(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Log.i(TAG, "Actually checking in");
                                     ProgressBarManager.showProgressBar(layoutInflater.getContext().getResources().getString(R.string.checkin_box), fragmentManager);
                                     BoxManager.checkinBox(box, layoutInflater.getContext());
                                 }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            }).setNegativeButton(layoutInflater.getContext().getString(R.string.no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Log.i(TAG, "Not Checking in");
@@ -112,14 +112,14 @@ public class BoxListAdapter extends BaseAdapter {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Log.i(TAG, "Going to delete");
                             AlertDialog.Builder confirmationDialogBuilder = new AlertDialog.Builder(layoutInflater.getContext());
-                            confirmationDialogBuilder.setMessage("Are you sure?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            confirmationDialogBuilder.setMessage("Are you sure?").setPositiveButton(layoutInflater.getContext().getString(R.string.yes), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Log.i(TAG, "Actually deleting");
                                     ProgressBarManager.showProgressBar(layoutInflater.getContext().getResources().getString(R.string.deleting_box), fragmentManager);
                                     BoxManager.deleteBox(box);
                                 }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            }).setNegativeButton(layoutInflater.getContext().getString(R.string.no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     Log.i(TAG, "Not deleting");
