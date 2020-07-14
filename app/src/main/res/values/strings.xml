@@ -39,5 +39,7 @@
     <string name="checkin_box">Checking in</string>
     <string name="checkin_box_success">Successfully checked in!</string>
     <string name="checkin_box_failed">An error occurred when checking in. Please try again later.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>
