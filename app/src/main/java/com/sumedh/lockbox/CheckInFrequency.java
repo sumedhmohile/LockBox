@@ -7,5 +7,5 @@ import java.util.concurrent.TimeUnit;
 public enum CheckInFrequency {
     Daily,
     Weekly,
-    Monthly;
+    Monthly
 }
