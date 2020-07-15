@@ -19,6 +19,7 @@ public class Box {
     private Date lastCheckInDate;
     private Date unlockDate;
     private String ownerId;
+    private LockStatusType lockStatus;
 
     public String getOwnerName() {
         return ownerName;
@@ -34,6 +35,10 @@ public class Box {
 
     public Date getUnlockDate() {
         return unlockDate;
+    }
+
+    public LockStatusType getLockStatus() {
+        return lockStatus;
     }
 
     public List<String> getFiles() {
@@ -62,6 +67,7 @@ public class Box {
         this.checkInFrequency = checkInFrequency;
         this.unlockDate = getDateFromFrequency(checkInFrequency);
         this.ownerId = ownerId;
+        this.lockStatus = LockStatusType.Locked;
     }
 
     private Date getDateFromFrequency(CheckInFrequency checkInFrequency) {
