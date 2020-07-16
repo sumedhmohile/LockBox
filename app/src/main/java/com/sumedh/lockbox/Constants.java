@@ -11,4 +11,5 @@ public class Constants {
     public static final String BOXES = "boxes";
     public static final String BOX_ID = "boxId";
     public static final String BLANK_SPACE = " ";
+    public static final String FCM_TOKEN = "FCM_TOKEN";
 }

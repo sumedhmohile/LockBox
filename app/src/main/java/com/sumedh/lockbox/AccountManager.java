@@ -20,6 +20,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +37,12 @@ public class AccountManager {
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         Query userNameQuery = database.child(Constants.USERS).orderByChild(Constants.USERNAME).equalTo(user.getUsername());
+
+        SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        if(StringUtils.isNotBlank(sharedPreferences.getString(Constants.FCM_TOKEN, Constants.BLANK_SPACE))) {
+            Log.i(TAG, "Setting FCM token before login");
+            user.setFcmToken(sharedPreferences.getString(Constants.FCM_TOKEN, Constants.BLANK_SPACE));
+        }
 
         userNameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -87,7 +96,13 @@ public class AccountManager {
 
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        if(StringUtils.isNotBlank(sharedPreferences.getString(Constants.FCM_TOKEN, Constants.BLANK_SPACE))) {
+            Log.i(TAG, "Setting FCM token before login");
+            user.setFcmToken(sharedPreferences.getString(Constants.FCM_TOKEN, Constants.BLANK_SPACE));
+        }
+
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         Query userNameQuery = database.child(Constants.USERS).orderByChild(Constants.USERNAME).equalTo(user.getUsername());
         userNameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -111,6 +126,7 @@ public class AccountManager {
                                     Log.i(TAG, "Successfully logged in");
                                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                                     user.setUserId(firebaseUser.getUid());
+                                    database.child(Constants.USERS).child(user.getUserId()).child("fcmToken").setValue(user.getFcmToken());
                                     saveUserToSharedPreference(user, activity);
                                     Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.login_success), Toast.LENGTH_LONG).show();
                                     routeToLanding(activity, user);
@@ -129,7 +145,7 @@ public class AccountManager {
                         });
 
                     } catch (Exception e) {
-                        Log.e(TAG, "Error when parsing username response");
+                        Log.e(TAG, "Error when parsing username response: " + Arrays.toString(e.getStackTrace()));
                         ProgressBarManager.dismissProgressBar();
                     }
                 }
@@ -158,5 +174,19 @@ public class AccountManager {
         activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, landingFragment)
                 .commit();
+    }
+
+    public static void handleFCMTokenRefresh(Context context, String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+
+        if(StringUtils.isNotBlank(sharedPreferences.getString(Constants.USER_ID, Constants.BLANK_SPACE))) {
+
+        }
+        else {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Constants.FCM_TOKEN, token);
+            editor.apply();
+        }
+
     }
 }
