@@ -13,6 +13,16 @@ public class User {
     private String email;
     private String userId;
 
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
+
+    private String fcmToken;
+
     public String getUsername() {
         return username;
     }
