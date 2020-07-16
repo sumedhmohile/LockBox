@@ -126,7 +126,7 @@ public class AccountManager {
                                     Log.i(TAG, "Successfully logged in");
                                     FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                                     user.setUserId(firebaseUser.getUid());
-                                    database.child(Constants.USERS).child(user.getUserId()).child("fcmToken").setValue(user.getFcmToken());
+                                    database.child(Constants.USERS).child(user.getUserId()).child(Constants.FCM_TOKEN).setValue(user.getFcmToken());
                                     saveUserToSharedPreference(user, activity);
                                     Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.login_success), Toast.LENGTH_LONG).show();
                                     routeToLanding(activity, user);
@@ -178,15 +178,15 @@ public class AccountManager {
 
     public static void handleFCMTokenRefresh(Context context, String token) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-
-        if(StringUtils.isNotBlank(sharedPreferences.getString(Constants.USER_ID, Constants.BLANK_SPACE))) {
-
+        String userId = sharedPreferences.getString(Constants.USER_ID, Constants.BLANK_SPACE);
+        if(StringUtils.isNotBlank(userId)) {
+            final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+            database.child(Constants.USERS).child(userId).child(Constants.FCM_TOKEN).setValue(token);
         }
         else {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(Constants.FCM_TOKEN, token);
             editor.apply();
         }
-
     }
 }
