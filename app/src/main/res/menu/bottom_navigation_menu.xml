@@ -10,7 +10,7 @@
         android:id="@+id/recently_added_navigation_button"
         android:enabled="true"
         android:icon="@drawable/recently_added_icon"
-        android:title="@string/recently_added"/>
+        android:title="@string/pending_checkin"/>
     <item
         android:id="@+id/popular_boxes_navigation_button"
         android:enabled="true"
