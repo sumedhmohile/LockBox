@@ -5,28 +5,22 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
-public class MyBoxesFragment extends Fragment {
-
-    public final String TAG = "MyBoxesFragment";
+public class PendingBoxesFragment extends Fragment {
 
     private User user;
 
-    public MyBoxesFragment() {
+    public PendingBoxesFragment() {
         // Required empty public constructor
     }
 
-    public static MyBoxesFragment newInstance(User user) {
-        MyBoxesFragment fragment = new MyBoxesFragment();
+
+    public static PendingBoxesFragment newInstance(User user) {
+        PendingBoxesFragment fragment = new PendingBoxesFragment();
         Bundle args = new Bundle();
         args.putString(Constants.USERNAME, user.getUsername());
         args.putString(Constants.EMAIL, user.getEmail());
@@ -52,29 +46,19 @@ public class MyBoxesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_my_boxes, container, false);
+        final View view = inflater.inflate(R.layout.fragment_pending_boxes, container, false);
 
-        ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_boxes), getFragmentManager());
-        BoxManager.loadBoxesForUser(user, view, getFragmentManager());
+        ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_pending_boxes), getFragmentManager());
+        BoxManager.loadPendingBoxesForUser(user, view, getFragmentManager());
 
-        FloatingActionButton addBoxButton = view.findViewById(R.id.add_box_fab);
-        addBoxButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddBoxFragment addBoxFragment = AddBoxFragment.newInstance(user);
-                addBoxFragment.show(getFragmentManager(), "AddBoxFragment");
-            }
-        });
-
-        SwipeRefreshLayout myBoxesLayout = view.findViewById(R.id.my_boxes_layout);
+        SwipeRefreshLayout myBoxesLayout = view.findViewById(R.id.pending_boxes_layout);
         myBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                BoxManager.loadBoxesForUser(user, view, getFragmentManager());
+                BoxManager.loadPendingBoxesForUser(user, view, getFragmentManager());
             }
         });
 
         return view;
-
     }
 }

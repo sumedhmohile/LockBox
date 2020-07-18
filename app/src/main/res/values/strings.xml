@@ -22,7 +22,7 @@
     <string name="generic_error">An unknown error occurred.</string>
     <string name="login_success">Welcome back!</string>
     <string name="my_boxes">My Boxes</string>
-    <string name="recently_added">Recently Added</string>
+    <string name="pending_checkin">Pending Checkins</string>
     <string name="popular_boxes">Popular</string>
     <string name="box_name">Box name</string>
     <string name="add_files">Add Files</string>
@@ -42,5 +42,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="default_notification_channel_id">lockbox_notification_channel</string>
-
+    <string name="loading_pending_boxes">Loading boxes that need attention</string>
 </resources>
