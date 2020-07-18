@@ -12,4 +12,6 @@ public class Constants {
     public static final String BOX_ID = "boxId";
     public static final String BLANK_SPACE = " ";
     public static final String FCM_TOKEN = "fcmToken";
+    public static final String NOTIFICATION_CHANNEL_ID = "lockbox_notification_channel";
+    public static final String NOTIFICATION_MAP_KEY = "message";
 }
