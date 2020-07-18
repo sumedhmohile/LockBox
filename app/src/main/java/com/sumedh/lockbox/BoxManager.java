@@ -24,7 +24,9 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
@@ -133,7 +135,7 @@ public class BoxManager {
     public static void loadBoxesForUser(User user, final View view, final FragmentManager fragmentManager) {
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         final List<Box> boxes = new ArrayList<>();
-        Query userBoxesQuery = database.child(Constants.BOXES).child(user.getUserId()).orderByChild(Constants.USERNAME);
+        Query userBoxesQuery = database.child(Constants.BOXES).child(user.getUserId());
 
         userBoxesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -142,7 +144,7 @@ public class BoxManager {
                     boxes.add(snap.getValue(Box.class));
                 }
                 ListView listView = view.findViewById(R.id.my_boxes_screen_listview);
-                BoxListAdapter boxListAdapter = new BoxListAdapter(view.getContext(), boxes, fragmentManager);
+                MutableBoxListAdapter boxListAdapter = new MutableBoxListAdapter(view.getContext(), boxes, fragmentManager);
                 listView.setAdapter(boxListAdapter);
                 ProgressBarManager.dismissProgressBar();
                 if (view.findViewById(R.id.my_boxes_layout) != null) {
@@ -161,7 +163,12 @@ public class BoxManager {
 
     public static void checkinBox(Box box, final Context context) {
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.child(Constants.BOXES).child(box.getOwnerId()).child(box.getBoxId()).child("lastCheckInDate").setValue(new Date()).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+        Map<String, Object> updateMap = new HashMap<>();
+        updateMap.put("lastCheckInDate", new Date());
+        updateMap.put(Constants.LOCK_STATUS, LockStatusType.Locked);
+
+        database.child(Constants.BOXES).child(box.getOwnerId()).child(box.getBoxId()).updateChildren(updateMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
@@ -174,6 +181,38 @@ public class BoxManager {
                     ProgressBarManager.dismissProgressBar();
                     Toast.makeText(context, context.getResources().getString(R.string.checkin_box_failed), Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+    }
+
+    public static void loadPendingBoxesForUser(User user, final View view, final FragmentManager fragmentManager) {
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        final List<Box> boxes = new ArrayList<>();
+        Query userBoxesQuery = database.child(Constants.BOXES).child(user.getUserId());
+
+        userBoxesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snap : snapshot.getChildren()) {
+                    Box box = snap.getValue(Box.class);
+                    if(box.getLockStatus().equals(LockStatusType.Warning)) {
+                        boxes.add(box);
+                    }
+                }
+                ListView listView = view.findViewById(R.id.pending_boxes_screen_listview);
+                MutableBoxListAdapter boxListAdapter = new MutableBoxListAdapter(view.getContext(), boxes, fragmentManager);
+                listView.setAdapter(boxListAdapter);
+                ProgressBarManager.dismissProgressBar();
+                if (view.findViewById(R.id.pending_boxes_layout) != null) {
+                    SwipeRefreshLayout layout = view.findViewById(R.id.pending_boxes_layout);
+                    layout.setRefreshing(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i(TAG, "Error: " + error);
+                ProgressBarManager.dismissProgressBar();
             }
         });
     }
