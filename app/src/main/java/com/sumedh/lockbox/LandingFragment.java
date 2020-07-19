@@ -1,5 +1,6 @@
 package com.sumedh.lockbox;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class LandingFragment extends Fragment {
 
@@ -53,11 +56,21 @@ public class LandingFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_landing, container, false);
 
 
-        getFragmentManager().beginTransaction()
-                .replace(R.id.landing_screen_container, MyBoxesFragment.newInstance(user))
-                .commit();
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_bar);
+
+        if (getActivity().getIntent() != null && StringUtils.isNotBlank(getActivity().getIntent().getStringExtra(Constants.NOTIFICATION_KEY))) {
+            bottomNavigationView.setSelectedItemId(R.id.recently_added_navigation_button);
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.landing_screen_container, PendingBoxesFragment.newInstance(user))
+                    .commit();
+        }
+        else {
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.landing_screen_container, MyBoxesFragment.newInstance(user))
+                    .commit();
+        }
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

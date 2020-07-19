@@ -41,13 +41,13 @@ public class SplashScreenFragment extends Fragment {
                 String userId = preferences.getString(Constants.USER_ID, "NONE");
 
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        CharSequence name = getString(R.string.fcm_fallback_notification_channel_label);
-                        int importance = NotificationManager.IMPORTANCE_DEFAULT;
-                        NotificationChannel channel = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, name, importance);
-                        NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
-                        notificationManager.createNotificationChannel(channel);
-                    }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    CharSequence name = getString(R.string.fcm_fallback_notification_channel_label);
+                    int importance = NotificationManager.IMPORTANCE_DEFAULT;
+                    NotificationChannel channel = new NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, name, importance);
+                    NotificationManager notificationManager = getActivity().getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(channel);
+                }
 
                 if(userId.equalsIgnoreCase("NONE")) {
                     LoginFragment loginFragment = LoginFragment.newInstance();
