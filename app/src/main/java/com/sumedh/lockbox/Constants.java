@@ -15,4 +15,6 @@ public class Constants {
     public static final String NOTIFICATION_CHANNEL_ID = "lockbox_notification_channel";
     public static final String NOTIFICATION_MAP_KEY = "message";
     public static final String LOCK_STATUS = "lockStatus";
+    public static final String NOTIFICATION_KEY = "notificationKey";
+    public static final String PENDING_BOXES_NOTIFICATION = "pendingBoxesNotification";
 }
