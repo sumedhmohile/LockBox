@@ -1,5 +1,7 @@
 package com.sumedh.lockbox;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -20,10 +22,18 @@ public class FirebaseHandlerService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        Log.i(TAG, "Received new message: " + remoteMessage.getData().toString());
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra(Constants.NOTIFICATION_KEY, Constants.PENDING_BOXES_NOTIFICATION);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.fcm_fallback_notification_channel_label))
                 .setSmallIcon(R.drawable.app_logo_small)
                 .setContentTitle(remoteMessage.getData().get(Constants.NOTIFICATION_MAP_KEY))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
