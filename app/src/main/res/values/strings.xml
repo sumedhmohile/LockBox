@@ -43,4 +43,5 @@
     <string name="no">No</string>
     <string name="default_notification_channel_id">lockbox_notification_channel</string>
     <string name="loading_pending_boxes">Loading boxes that need attention</string>
+    <string name="loading_box_data">Loading box data</string>
 </resources>

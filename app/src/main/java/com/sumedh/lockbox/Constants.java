@@ -17,4 +17,11 @@ public class Constants {
     public static final String LOCK_STATUS = "lockStatus";
     public static final String NOTIFICATION_KEY = "notificationKey";
     public static final String PENDING_BOXES_NOTIFICATION = "pendingBoxesNotification";
+    public static final String BOX_NAME = "name";
+    public static final String BOX_OWNER_NAME = "ownerName";
+    public static final String BOX_OWNER_ID = "ownerId";
+    public static final String BOX_CREATION_DATE = "creationDate";
+    public static final String BOX_CHECKIN_DATE = "lastCheckinDate";
+    public static final String BOX_CHECKING_FREQUENCY = "checkingFrequency";
+
 }
