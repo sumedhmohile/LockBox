@@ -53,6 +53,18 @@ public class Box {
         return checkInFrequency;
     }
 
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setLastCheckInDate(Date lastCheckInDate) {
+        this.lastCheckInDate = lastCheckInDate;
+    }
+
+    public void setBoxId(String boxId) {
+        this.boxId = boxId;
+    }
+
 
     public Box() {
 

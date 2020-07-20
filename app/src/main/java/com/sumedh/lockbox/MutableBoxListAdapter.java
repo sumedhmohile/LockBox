@@ -68,5 +68,6 @@ public class MutableBoxListAdapter extends BoxListAdapter {
                 return true;
             }
         });
+
     }
 }

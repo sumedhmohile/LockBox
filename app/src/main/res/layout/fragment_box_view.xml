@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BoxViewFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Box Name"
+        android:textSize="50sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
+        android:id="@+id/box_viewer_box_name"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OwnerName"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/box_viewer_box_name"
+        app:layout_constraintStart_toStartOf="@id/box_viewer_box_name"
+        android:layout_margin="10dp"
+        android:id="@+id/box_viewer_owner_name"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Created: 01/01/2000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/box_viewer_owner_name"
+        app:layout_constraintStart_toStartOf="@id/box_viewer_owner_name"
+        android:layout_margin="10dp"
+        android:id="@+id/box_viewer_created_date"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Created: 02/02/2000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/box_viewer_created_date"
+        app:layout_constraintStart_toStartOf="@id/box_viewer_created_date"
+        android:layout_margin="10dp"
+        android:id="@+id/box_viewer_checkindate"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/box_viewer_checkindate"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        android:id="@+id/box_viewer_image_pager"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
