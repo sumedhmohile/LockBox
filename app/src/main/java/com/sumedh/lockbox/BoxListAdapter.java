@@ -1,9 +1,6 @@
 package com.sumedh.lockbox;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +69,17 @@ public class BoxListAdapter extends BaseAdapter {
                 boxFileLabel.setText(layoutInflater.getContext().getResources().getString(R.string.file));
             }
 
+            CardView boxCard = convertView.findViewById(R.id.box_card);
+
+            boxCard.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BoxViewFragment boxViewFragment = BoxViewFragment.newInstance(box);
+                    ProgressBarManager.showProgressBar(layoutInflater.getContext().getResources().getString(R.string.loading_box_data), fragmentManager);
+                    boxViewFragment.show(fragmentManager, "BoxViewFragment");
+                }
+            });
+
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             boxLastCheckIn.setText(sdf.format(box.getLastCheckInDate()));
 
@@ -84,6 +92,5 @@ public class BoxListAdapter extends BaseAdapter {
     }
 
     protected void setUpActions(View view, Box box) {
-
     }
 }
