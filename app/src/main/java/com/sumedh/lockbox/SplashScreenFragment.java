@@ -38,7 +38,7 @@ public class SplashScreenFragment extends Fragment {
             public void run() {
 
                 SharedPreferences preferences = getActivity().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
-                String userId = preferences.getString(Constants.USER_ID, "NONE");
+                String userId = preferences.getString(Constants.USER_ID, Constants.NONE);
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -49,7 +49,7 @@ public class SplashScreenFragment extends Fragment {
                     notificationManager.createNotificationChannel(channel);
                 }
 
-                if(userId.equalsIgnoreCase("NONE")) {
+                if(userId.equals(Constants.NONE)) {
                     LoginFragment loginFragment = LoginFragment.newInstance();
                     getFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, loginFragment)
