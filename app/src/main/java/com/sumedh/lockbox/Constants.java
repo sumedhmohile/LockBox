@@ -23,5 +23,6 @@ public class Constants {
     public static final String BOX_CREATION_DATE = "creationDate";
     public static final String BOX_CHECKIN_DATE = "lastCheckinDate";
     public static final String BOX_CHECKING_FREQUENCY = "checkingFrequency";
+    public static final String NONE = "NONE";
 
 }
