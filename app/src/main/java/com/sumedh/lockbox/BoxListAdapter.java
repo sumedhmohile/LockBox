@@ -75,7 +75,6 @@ public class BoxListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     BoxViewFragment boxViewFragment = BoxViewFragment.newInstance(box);
-                    ProgressBarManager.showProgressBar(layoutInflater.getContext().getResources().getString(R.string.loading_box_data), fragmentManager);
                     boxViewFragment.show(fragmentManager, "BoxViewFragment");
                 }
             });
