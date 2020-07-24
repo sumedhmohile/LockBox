@@ -52,7 +52,7 @@ public class BoxManager {
                     Log.i(TAG, "Successfully added box");
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference().child(Constants.BOXES).child(owner.getUserId()).child(box.getBoxId());
-
+                    final List<String> fileUrls = new ArrayList<>();
                     for(final Uri fileUri : fileList) {
                         UploadTask uploadTask = storageRef.child(UUID.randomUUID().toString()).putFile(fileUri);
                         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -67,8 +67,23 @@ public class BoxManager {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 Log.i(TAG, "Uploaded file successfully " + fileUri);
-                                ProgressBarManager.dismissProgressBar();
-                                Toast.makeText(context, context.getResources().getString(R.string.add_box_success), Toast.LENGTH_LONG).show();
+                                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        fileUrls.add(uri.toString());
+                                        if(fileUrls.size() == box.getFiles().size()) {
+                                            box.setFiles(fileUrls);
+                                            database.child(Constants.BOXES).child(owner.getUserId()).child(box.getBoxId()).child(Constants.FILES_LIST).setValue(box.getFiles()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.i(TAG, "Updated box");
+                                                    ProgressBarManager.dismissProgressBar();
+                                                    Toast.makeText(context, context.getResources().getString(R.string.add_box_success), Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
                             }
                         });
                     }
