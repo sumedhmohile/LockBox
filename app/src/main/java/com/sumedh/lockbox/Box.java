@@ -1,5 +1,6 @@
 package com.sumedh.lockbox;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Box {
     private String boxId;
     private String ownerName;
     private String name;
-    private List<String> files;
+    private ArrayList<String> files;
     private Date creationDate;
     private CheckInFrequency checkInFrequency;
     private Date lastCheckInDate;
@@ -41,7 +42,7 @@ public class Box {
         return lockStatus;
     }
 
-    public List<String> getFiles() {
+    public ArrayList<String> getFiles() {
         return files;
     }
 
@@ -92,7 +93,7 @@ public class Box {
         }
         return c.getTime();
     }
-    public void setFiles(List<String> files) {
+    public void setFiles(ArrayList<String> files) {
         this.files = files;
     }
 

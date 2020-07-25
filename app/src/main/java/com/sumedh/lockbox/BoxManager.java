@@ -39,7 +39,7 @@ public class BoxManager {
 
     public static Box createBox(final User owner, String name, final List<Uri> fileList, CheckInFrequency checkInFrequency, final Context context) {
         final Box box = new Box(owner.getUsername(), name, checkInFrequency, owner.getUserId());
-        List<String> strings = new ArrayList<>();
+        ArrayList<String> strings = new ArrayList<>();
         for(Uri uri : fileList) {
             strings.add(uri.toString());
         }
@@ -52,7 +52,7 @@ public class BoxManager {
                     Log.i(TAG, "Successfully added box");
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference().child(Constants.BOXES).child(owner.getUserId()).child(box.getBoxId());
-                    final List<String> fileUrls = new ArrayList<>();
+                    final ArrayList<String> fileUrls = new ArrayList<>();
                     for(final Uri fileUri : fileList) {
                         UploadTask uploadTask = storageRef.child(UUID.randomUUID().toString()).putFile(fileUri);
                         uploadTask.addOnFailureListener(new OnFailureListener() {
