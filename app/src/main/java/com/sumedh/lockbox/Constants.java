@@ -25,4 +25,5 @@ public class Constants {
     public static final String BOX_CHECKING_FREQUENCY = "checkingFrequency";
     public static final String NONE = "NONE";
     public static final String FILES_LIST = "files";
+    public static final String IMAGE_URI = "imageUri";
 }

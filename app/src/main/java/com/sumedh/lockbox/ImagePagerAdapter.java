@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.ImageHolder> {
@@ -17,11 +18,13 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
     private Box box;
     private Context context;
     private List<Uri> filePaths;
+    private FragmentManager fragmentManager;
 
-    ImagePagerAdapter(Context context, Box box, List<Uri> file) {
+    ImagePagerAdapter(Context context, Box box, List<Uri> file, FragmentManager fragmentManager) {
         this.context = context;
         this.box = box;
         this.filePaths = file;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -33,8 +36,16 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
 
 
     @Override
-    public void onBindViewHolder(@NonNull final ImageHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ImageHolder holder, final int position) {
         holder.imageView.setImageURI(filePaths.get(position));
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BoxImageFragment boxImageFragment = BoxImageFragment.newInstance(filePaths.get(position));
+                boxImageFragment.show(fragmentManager, "BoxImage");
+            }
+        });
     }
 
     @Override

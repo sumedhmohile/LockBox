@@ -122,7 +122,7 @@ public class BoxViewFragment extends DialogFragment {
                             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                                 files.add(Uri.fromFile(file));
                                 if (files.size() == box.getFiles().size()) {
-                                    ImagePagerAdapter adapter = new ImagePagerAdapter(getContext(), box, files);
+                                    ImagePagerAdapter adapter = new ImagePagerAdapter(getContext(), box, files, getFragmentManager());
                                     imageViewPager.setAdapter(adapter);
                                 }
                             }
@@ -139,26 +139,6 @@ public class BoxViewFragment extends DialogFragment {
 
             }
         });
-
-
-//        StorageReference storageRef = storage.getReference().child(Constants.BOXES).child(box.getOwnerId()).child(box.getBoxId()).child(Constants.FILES_LIST);
-
-//        final List<File> filesList = new ArrayList<>();
-
-
-//        storageRef.listAll().addOnCompleteListener(new OnCompleteListener<ListResult>() {
-//            @Override
-//            public void onComplete(@NonNull  Task<ListResult> task) {
-//                for (StorageReference ref : task.getResult().getItems()) {
-//                    Log.i(TAG, "Loading image: " + ref.getPath());
-//                    filesList.add(ref.getPath());
-//                }
-//                box.setFiles(filesList);
-//
-
-//            }
-//        });
-
 
         return view;
     }
