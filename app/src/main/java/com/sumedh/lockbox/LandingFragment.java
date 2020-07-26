@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,8 +57,8 @@ public class LandingFragment extends Fragment {
 
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.bottom_navigation_bar);
-
-        if (getActivity().getIntent() != null && StringUtils.isNotBlank(getActivity().getIntent().getStringExtra(Constants.NOTIFICATION_KEY))) {
+        String notification = getActivity().getIntent().getStringExtra(Constants.NOTIFICATION_KEY);
+        if (StringUtils.isNotBlank(notification) && notification.equals(Constants.NOTIFICATION_WARN)) {
             bottomNavigationView.setSelectedItemId(R.id.recently_added_navigation_button);
             getFragmentManager().beginTransaction()
                     .replace(R.id.landing_screen_container, PendingBoxesFragment.newInstance(user))
