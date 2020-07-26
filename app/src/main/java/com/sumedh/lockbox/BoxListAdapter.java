@@ -52,22 +52,15 @@ public class BoxListAdapter extends BaseAdapter {
             TextView boxCheckinFrequencyTextView = convertView.findViewById(R.id.box_checkin_frequency);
             TextView boxFileCountTextView = convertView.findViewById(R.id.box_file_count);
             TextView boxLastCheckIn = convertView.findViewById(R.id.box_last_checkin);
-            TextView boxCheckinDeadline = convertView.findViewById(R.id.checkin_deadline);
-            TextView boxFileLabel = convertView.findViewById(R.id.file_label);
+            TextView boxunlockDate = convertView.findViewById(R.id.checkin_deadline);
+            View cardBackground = convertView.findViewById(R.id.box_card_background);
 
             final Box box = boxes.get(position);
 
             boxNameTextView.setText(box.getName());
-            boxOwnerTextView.setText(box.getOwnerName());
-            boxCheckinFrequencyTextView.setText(box.getCheckInFrequency().name());
-            boxFileCountTextView.setText(String.format("%d", box.getFiles().size()));
-
-            if(box.getFiles().size() > 1) {
-                boxFileLabel.setText(layoutInflater.getContext().getResources().getString(R.string.files));
-            }
-            else {
-                boxFileLabel.setText(layoutInflater.getContext().getResources().getString(R.string.file));
-            }
+            boxOwnerTextView.setText(layoutInflater.getContext().getResources().getString(R.string.box_owner_name, box.getOwnerName()));
+            boxCheckinFrequencyTextView.setText(layoutInflater.getContext().getResources().getString(R.string.box_checkin_frequency, box.getCheckInFrequency().name()));
+            boxFileCountTextView.setText(layoutInflater.getContext().getResources().getQuantityString(R.plurals.file_label, box.getFiles().size(), String.format("%d", box.getFiles().size())));
 
             CardView boxCard = convertView.findViewById(R.id.box_card);
 
@@ -79,10 +72,17 @@ public class BoxListAdapter extends BaseAdapter {
                 }
             });
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            boxLastCheckIn.setText(sdf.format(box.getLastCheckInDate()));
 
-            boxCheckinDeadline.setText(TimeUnit.HOURS.convert(box.getUnlockDate().getTime() - box.getLastCheckInDate().getTime(), TimeUnit.MILLISECONDS) + "");
+            if(box.getLockStatus().equals(LockStatusType.Warning)) {
+                cardBackground.setBackgroundResource(R.drawable.warning_gradient);
+            }
+            else if(box.getLockStatus().equals(LockStatusType.Unlocked)) {
+                cardBackground.setBackgroundResource(R.drawable.unlocked_gradient);
+            }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            boxLastCheckIn.setText(layoutInflater.getContext().getResources().getString(R.string.box_last_checkin_date, sdf.format(box.getLastCheckInDate())));
+            boxunlockDate.setText(layoutInflater.getContext().getResources().getString(R.string.box_unlock_date, sdf.format(box.getUnlockDate())));
 
             setUpActions(convertView, box);
 
