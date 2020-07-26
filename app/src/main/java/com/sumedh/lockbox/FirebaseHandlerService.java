@@ -25,7 +25,7 @@ public class FirebaseHandlerService extends FirebaseMessagingService {
         Log.i(TAG, "Received new message: " + remoteMessage.getData().toString());
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra(Constants.NOTIFICATION_KEY, Constants.PENDING_BOXES_NOTIFICATION);
+        intent.putExtra(Constants.NOTIFICATION_KEY, remoteMessage.getData().get(Constants.NOTIFICATION_TYPE));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, getString(R.string.fcm_fallback_notification_channel_label))
@@ -37,7 +37,7 @@ public class FirebaseHandlerService extends FirebaseMessagingService {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(Integer.parseInt(remoteMessage.getData().get(Constants.NOTIFICATION_ID)), builder.build());
     }
 
 }

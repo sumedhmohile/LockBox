@@ -16,7 +16,6 @@ public class Constants {
     public static final String NOTIFICATION_MAP_KEY = "message";
     public static final String LOCK_STATUS = "lockStatus";
     public static final String NOTIFICATION_KEY = "notificationKey";
-    public static final String PENDING_BOXES_NOTIFICATION = "pendingBoxesNotification";
     public static final String BOX_NAME = "name";
     public static final String BOX_OWNER_NAME = "ownerName";
     public static final String BOX_OWNER_ID = "ownerId";
@@ -27,4 +26,7 @@ public class Constants {
     public static final String FILES_LIST = "files";
     public static final String IMAGE_URI = "imageUri";
     public static final String UNLOCKED_BOXES = "unlockedBoxes";
+    public static final String NOTIFICATION_TYPE = "notification_type";
+    public static final String NOTIFICATION_WARN = "NOTIFICATION_WARN";
+    public static final String NOTIFICATION_ID = "notification_id";
 }
