@@ -37,7 +37,7 @@ public class FirebaseHandlerService extends FirebaseMessagingService {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
-        notificationManager.notify(1, builder.build());
+        notificationManager.notify(Integer.parseInt(remoteMessage.getData().get(Constants.NOTIFICATION_ID)), builder.build());
     }
 
 }

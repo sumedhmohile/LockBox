@@ -28,4 +28,5 @@ public class Constants {
     public static final String UNLOCKED_BOXES = "unlockedBoxes";
     public static final String NOTIFICATION_TYPE = "notification_type";
     public static final String NOTIFICATION_WARN = "NOTIFICATION_WARN";
+    public static final String NOTIFICATION_ID = "notification_id";
 }
