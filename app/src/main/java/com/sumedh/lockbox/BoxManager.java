@@ -231,4 +231,34 @@ public class BoxManager {
             }
         });
     }
+
+    public static void loadPublicBoxes(final View view, final FragmentManager fragmentManager) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        Query unlockedBoxesQuery = databaseReference.child(Constants.UNLOCKED_BOXES);
+
+        final List<Box> unlockedBoxes = new ArrayList<>();
+        unlockedBoxesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snap : snapshot.getChildren()) {
+                    Box box = snap.getValue(Box.class);
+                    unlockedBoxes.add(box);
+                }
+                ListView listView = view.findViewById(R.id.unlocked_boxes_screen_listview);
+                ImmutableBoxListAdapter boxListAdapter = new ImmutableBoxListAdapter(view.getContext(), unlockedBoxes, fragmentManager);
+                listView.setAdapter(boxListAdapter);
+                ProgressBarManager.dismissProgressBar();
+                if (view.findViewById(R.id.unlocked_boxes_layout) != null) {
+                    SwipeRefreshLayout layout = view.findViewById(R.id.unlocked_boxes_layout);
+                    layout.setRefreshing(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "Error: " + error + " : " + error.getMessage());
+                ProgressBarManager.dismissProgressBar();
+            }
+        });
+    }
 }
