@@ -1,12 +1,10 @@
 package com.sumedh.lockbox;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,7 +79,9 @@ public class LandingFragment extends Fragment {
                     case R.id.recently_added_navigation_button: getFragmentManager().beginTransaction()
                                                                 .replace(R.id.landing_screen_container, PendingBoxesFragment.newInstance(user))
                                                                 .commit(); break;
-                    case R.id.popular_boxes_navigation_button: Log.i(TAG, "POP"); break;
+                    case R.id.popular_boxes_navigation_button: getFragmentManager().beginTransaction()
+                                                                .replace(R.id.landing_screen_container, UnlockedBoxesFragment.newInstance(user))
+                                                                .commit(); break;
                 }
                 return true;
             }
