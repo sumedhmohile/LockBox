@@ -33,10 +33,6 @@
     <string name="add_box_failed">We are unable to add this box right now. Please try again later.</string>
     <string name="add_box_success">Added new box!</string>
     <string name="loading_boxes">Loading your boxes</string>
-    <plurals name="file_label">
-        <item quantity="one">%1$s\nFile</item>
-        <item quantity="other">%1$s\nFiles</item>
-    </plurals>
     <string name="deleting_box">Deleting Box</string>
     <string name="checkin_box">Checking in</string>
     <string name="checkin_box_success">Successfully checked in!</string>
@@ -51,4 +47,8 @@
     <string name="box_last_checkin_date">%1$s\nCreation Date</string>
     <string name="box_unlock_date">%1$s\nUnlock Date</string>
     <string name="box_owner_name">Owner: %1$s</string>
+    <plurals name="file_label">
+        <item quantity="one">%1$s\nFile</item>
+        <item quantity="other">%1$s\nFiles</item>
+    </plurals>
 </resources>
