@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#001D57</color>
     <color name="colorAccent">#F7E9EE</color>
     <color name="colorError">#F80202</color>
+    <color name="colorBoxWarning">#ffa726</color>
+    <color name="colorBoxWarningDark">#e65100</color>
+    <color name="colorBoxUnlocked">#f44336</color>
+    <color name="colorBoxUnlockedDark">#b71c1c</color>
 </resources>
