@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/app_slogan"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_screen_logo" />
@@ -54,7 +54,7 @@
                     android:id="@+id/register_screen_email_text"
                     android:inputType="textEmailAddress"
                     android:hint="@string/email"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorContrastLight"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/register_screen_username_text"
                     android:hint="@string/username"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/colorContrastLight"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,7 +92,7 @@
                     android:id="@+id/register_screen_password_text"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/colorContrastLight"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +111,7 @@
                     android:id="@+id/register_screen_password_confirm_text"
                     android:hint="@string/confirm_password"
                     android:inputType="textPassword"
-                    android:textColor="@color/colorAccent"/>
+                    android:textColor="@color/colorContrastLight"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,7 +124,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_screen_password_confirm"
                 android:background="@color/colorPrimaryDark"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorContrastLight"/>
 
             <TextView
                 android:id="@+id/register_screen_login_text"
@@ -133,7 +133,7 @@
                 android:layout_margin="8dp"
                 android:gravity="center_horizontal"
                 android:text="@string/already_registered"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/register_button" />
 

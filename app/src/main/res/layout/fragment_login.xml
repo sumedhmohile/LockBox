@@ -25,7 +25,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/app_slogan"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorContrastLight"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_screen_logo" />
@@ -45,7 +45,7 @@
             android:id="@+id/login_screen_username_text"
             android:inputType="textEmailAddress"
             android:hint="@string/username"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorContrastLight" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +64,7 @@
             android:id="@+id/login_screen_password_text"
             android:inputType="textPassword"
             android:hint="@string/password"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorContrastLight" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,7 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_screen_password"
         android:background="@color/colorPrimaryDark"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorContrastLight"/>
 
     <TextView
         android:id="@+id/login_screen_register_text"
@@ -87,7 +87,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:text="@string/not_registered"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorContrastLight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button" />
 

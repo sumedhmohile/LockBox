@@ -48,8 +48,9 @@ public class UnlockedBoxesFragment extends Fragment {
         ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_unlocked_boxes), getFragmentManager());
         BoxManager.loadPublicBoxes(view, getFragmentManager());
 
-        SwipeRefreshLayout myBoxesLayout = view.findViewById(R.id.unlocked_boxes_layout);
-        myBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        SwipeRefreshLayout unlockedBoxesLayout = view.findViewById(R.id.unlocked_boxes_layout);
+        unlockedBoxesLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        unlockedBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 BoxManager.loadPublicBoxes(view, getFragmentManager());

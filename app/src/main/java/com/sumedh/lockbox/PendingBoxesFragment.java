@@ -51,8 +51,9 @@ public class PendingBoxesFragment extends Fragment {
         ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_pending_boxes), getFragmentManager());
         BoxManager.loadPendingBoxesForUser(user, view, getFragmentManager());
 
-        SwipeRefreshLayout myBoxesLayout = view.findViewById(R.id.pending_boxes_layout);
-        myBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        SwipeRefreshLayout pendingBoxesLayout = view.findViewById(R.id.pending_boxes_layout);
+        pendingBoxesLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        pendingBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 BoxManager.loadPendingBoxesForUser(user, view, getFragmentManager());

@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#0000FF</color>
     <color name="colorPrimaryDark">#001D57</color>
-    <color name="colorAccent">#F7E9EE</color>
+    <color name="colorContrastLight">#F7E9EE</color>
+    <color name="colorAccent">#A21EE9</color>
     <color name="colorError">#F80202</color>
     <color name="colorBoxWarning">#ffa726</color>
     <color name="colorBoxWarningDark">#e65100</color>
