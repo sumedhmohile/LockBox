@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/box_name_text"
@@ -35,7 +35,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/box_file_count"
                 android:gravity="center"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 android:textSize="20sp"/>
 
             <TextView
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@id/box_name_text"
                 app:layout_constraintTop_toBottomOf="@id/box_name_text"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 android:textSize="12sp"
                 android:layout_margin="10dp"
                 android:id="@+id/box_owner"/>
@@ -54,7 +54,7 @@
                 android:id="@+id/box_checkin_frequency"
                 app:layout_constraintTop_toBottomOf="@+id/box_owner"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:textSize="12sp"/>
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="10dp"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 android:textSize="12sp"
                 android:gravity="center"
                 app:layout_constraintStart_toEndOf="@+id/box_checkin_frequency"
@@ -77,7 +77,7 @@
                 android:id="@+id/checkin_deadline"
                 app:layout_constraintTop_toBottomOf="@+id/box_owner"
                 app:layout_constraintStart_toEndOf="@id/box_last_checkin"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorContrastLight"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="45dp"
                 android:gravity="center"

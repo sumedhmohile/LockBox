@@ -67,6 +67,7 @@ public class MyBoxesFragment extends Fragment {
         });
 
         SwipeRefreshLayout myBoxesLayout = view.findViewById(R.id.my_boxes_layout);
+        myBoxesLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         myBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -32,7 +32,7 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         app:backgroundTint="@color/colorPrimary"
-        android:tint="@color/colorAccent"
+        android:tint="@color/colorContrastLight"
         app:srcCompat="@drawable/ic_add"
         android:id="@+id/add_box_fab"/>
 

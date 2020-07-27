@@ -21,8 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu"
         style="@style/Widget.Design.BottomNavigationView"
-        app:itemIconTint="@color/colorAccent"
-        app:itemTextColor="@color/colorAccent"
+        app:itemIconTint="@color/colorContrastLight"
+        app:itemTextColor="@color/colorContrastLight"
         android:background="@drawable/locked_gradient"
         android:id="@+id/bottom_navigation_bar"/>
 
