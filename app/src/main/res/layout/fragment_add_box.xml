@@ -24,43 +24,43 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/add_box_name_layout"
-        android:layout_below="@+id/add_box_name_layout"
-        android:text="@string/frequency"
-        android:layout_margin="10dp"
-        android:textSize="18sp"/>
-
     <androidx.appcompat.widget.AppCompatSpinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_alignEnd="@id/add_box_name_layout"
+        android:layout_marginHorizontal="10dp"
+        android:layout_alignStart="@id/add_box_name_layout"
         android:layout_below="@+id/add_box_name_layout"
         android:id="@+id/add_box_frequency_spinner"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignStart="@id/add_box_frequency_spinner"
+        android:layout_below="@+id/add_box_frequency_spinner"
+        android:text="@string/frequency"
+        android:id="@+id/frequency_label"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_boxes_file_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/colorPrimary"
+        android:layout_below="@+id/add_box_name_layout"
+        android:layout_alignEnd="@+id/add_box_name_layout"
+        android:background="@drawable/locked_gradient"
         android:text="@string/add_files"
-        android:textColor="@color/colorAccent"
-        android:layout_alignStart="@+id/add_box_name_layout"
-        android:layout_below="@+id/add_box_frequency_spinner"/>
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorContrastLight" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_boxes_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/locked_gradient"
         android:text="@string/add_box"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorContrastLight"
         android:layout_alignStart="@+id/add_box_name_layout"
-        android:layout_below="@+id/add_boxes_file_button" />
+        android:layout_below="@+id/frequency_label" />
 
 </RelativeLayout>
