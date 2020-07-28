@@ -6,48 +6,132 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BoxViewFragment">
 
-    <TextView
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="50sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="10dp"
-        android:id="@+id/box_viewer_box_name"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/locked_gradient"
+        android:id="@+id/box_viewer_header">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@+id/box_viewer_box_name"
-        app:layout_constraintStart_toStartOf="@id/box_viewer_box_name"
-        android:layout_margin="10dp"
-        android:id="@+id/box_viewer_owner_name"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/box_viewer_owner_name"
-        app:layout_constraintStart_toStartOf="@id/box_viewer_owner_name"
-        android:layout_margin="10dp"
-        android:id="@+id/box_viewer_created_date"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10dp"
+            android:id="@+id/box_viewer_box_name"
+            android:textColor="@color/colorContrastLight"
+            android:gravity="center"
+            android:text="Somebox"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/box_viewer_created_date"
-        app:layout_constraintStart_toStartOf="@id/box_viewer_created_date"
-        android:layout_margin="10dp"
-        android:id="@+id/box_viewer_checkindate"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="match_parent"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/guideline8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10dp"
+            android:text="Owner:"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"
+            android:id="@+id/box_viewer_owner_name"
+            android:text="username"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/box_viewer_owner_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"
+            android:text="Creation Date:"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/box_viewer_owner_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"
+            android:id="@+id/box_viewer_created_date"
+            android:text="01/01/2000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/box_viewer_created_date"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="10dp"
+            android:text="Last Check in:"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/box_viewer_created_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="10dp"
+            android:id="@+id/box_viewer_checkindate"
+            android:text="02/01/2020"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/box_viewer_checkindate"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="10dp"
-        android:id="@+id/box_viewer_image_pager"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/box_viewer_image_pager"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

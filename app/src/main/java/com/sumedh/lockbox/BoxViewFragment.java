@@ -4,19 +4,16 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
@@ -37,7 +33,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class BoxViewFragment extends DialogFragment {
+public class BoxViewFragment extends Fragment {
 
     private final String TAG = "BoxViewFragment";
     Box box;
@@ -59,6 +55,7 @@ public class BoxViewFragment extends DialogFragment {
         args.putLong(Constants.BOX_CREATION_DATE, box.getCreationDate().getTime());
         args.putString(Constants.BOX_CHECKING_FREQUENCY, box.getCheckInFrequency().name());
         args.putStringArrayList(Constants.FILES_LIST, box.getFiles());
+        args.putString(Constants.LOCK_STATUS, box.getLockStatus().name());
 
         fragment.setArguments(args);
 
@@ -75,12 +72,14 @@ public class BoxViewFragment extends DialogFragment {
             String ownerId = getArguments().getString(Constants.BOX_OWNER_ID);
             String boxId = getArguments().getString(Constants.BOX_ID);
             ArrayList filesList = getArguments().getStringArrayList(Constants.FILES_LIST);
+            LockStatusType lockStatusType = LockStatusType.valueOf(getArguments().getString(Constants.LOCK_STATUS));
 
             box = new Box(ownerName, name, CheckInFrequency.valueOf(checkinFrequency), ownerId);
             box.setCreationDate(new Date(getArguments().getLong(Constants.BOX_CREATION_DATE)));
             box.setLastCheckInDate(new Date(getArguments().getLong(Constants.BOX_CHECKIN_DATE)));
             box.setBoxId(boxId);
             box.setFiles(filesList);
+            box.setLockStatus(lockStatusType);
         }
     }
 
@@ -94,6 +93,7 @@ public class BoxViewFragment extends DialogFragment {
         TextView ownerNameTextView = view.findViewById(R.id.box_viewer_owner_name);
         TextView boxCreationDateTextView = view.findViewById(R.id.box_viewer_created_date);
         TextView boxCheckinDateTextView = view.findViewById(R.id.box_viewer_checkindate);
+        ConstraintLayout boxHeaderLayout = view.findViewById(R.id.box_viewer_header);
         final ViewPager2 imageViewPager = view.findViewById(R.id.box_viewer_image_pager);
 
         boxNameTextView.setText(box.getName());
@@ -102,9 +102,19 @@ public class BoxViewFragment extends DialogFragment {
         boxCreationDateTextView.setText(sdf.format(box.getCreationDate()));
         boxCheckinDateTextView.setText(sdf.format(box.getLastCheckInDate()));
 
+        if(box.getLockStatus().equals(LockStatusType.Locked)) {
+            boxHeaderLayout.setBackgroundResource(R.drawable.locked_gradient);
+        } else if (box.getLockStatus().equals(LockStatusType.Warning)) {
+            boxHeaderLayout.setBackgroundResource(R.drawable.warning_gradient);
+        } else {
+            boxHeaderLayout.setBackgroundResource(R.drawable.unlocked_gradient);
+        }
 
         final FirebaseStorage storage = FirebaseStorage.getInstance();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+
+        ImagePagerAdapter adapter = new ImagePagerAdapter(getContext(), box, new ArrayList<Uri>(), getFragmentManager());
+        imageViewPager.setAdapter(adapter);
 
         database.child(Constants.BOXES).child(box.getOwnerId()).child(box.getBoxId()).child(Constants.FILES_LIST).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
