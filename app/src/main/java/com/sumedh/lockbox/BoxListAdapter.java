@@ -68,7 +68,10 @@ public class BoxListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     BoxViewFragment boxViewFragment = BoxViewFragment.newInstance(box);
-                    boxViewFragment.show(fragmentManager, "BoxViewFragment");
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, boxViewFragment)
+                            .addToBackStack("BoxViewer")
+                            .commit();
                 }
             });
 

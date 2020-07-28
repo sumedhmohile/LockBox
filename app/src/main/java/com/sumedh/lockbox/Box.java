@@ -46,6 +46,10 @@ public class Box {
         return files;
     }
 
+    public void setLockStatus(LockStatusType lockStatus) {
+        this.lockStatus = lockStatus;
+    }
+
     public Date getCreationDate() {
         return creationDate;
     }
