@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,9 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
         if(filePaths.size() > position) {
             holder.imageView.setImageURI(filePaths.get(position));
 
+            holder.imageView.setVisibility(View.VISIBLE);
+            holder.progressBar.setVisibility(View.INVISIBLE);
+
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -56,11 +61,13 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
     }
 
     public class ImageHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
+        private ImageView imageView;
+        private ProgressBar progressBar;
 
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.box_image);
+            progressBar = itemView.findViewById(R.id.box_image_progress_bar);
         }
     }
 }
