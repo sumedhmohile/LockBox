@@ -37,15 +37,17 @@ public class ImagePagerAdapter extends RecyclerView.Adapter<ImagePagerAdapter.Im
 
     @Override
     public void onBindViewHolder(@NonNull final ImageHolder holder, final int position) {
-        holder.imageView.setImageURI(filePaths.get(position));
+        if(filePaths.size() > position) {
+            holder.imageView.setImageURI(filePaths.get(position));
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BoxImageFragment boxImageFragment = BoxImageFragment.newInstance(filePaths.get(position));
-                boxImageFragment.show(fragmentManager, "BoxImage");
-            }
-        });
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BoxImageFragment boxImageFragment = BoxImageFragment.newInstance(filePaths.get(position));
+                    boxImageFragment.show(fragmentManager, "BoxImage");
+                }
+            });
+        }
     }
 
     @Override
