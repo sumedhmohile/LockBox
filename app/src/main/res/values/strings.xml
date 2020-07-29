@@ -47,6 +47,9 @@
     <string name="box_last_checkin_date">%1$s\nCreation Date</string>
     <string name="box_unlock_date">%1$s\nUnlock Date</string>
     <string name="box_owner_name">Owner: %1$s</string>
+    <string name="box_view_owner">Owner:</string>
+    <string name="box_view_creation_date">Creation Date:</string>
+    <string name="box_view_last_checkin">Last Check in:</string>
     <plurals name="file_label">
         <item quantity="one">%1$s\nFile</item>
         <item quantity="other">%1$s\nFiles</item>
