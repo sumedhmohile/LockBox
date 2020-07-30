@@ -16,6 +16,7 @@
     <string name="username_exists_error">This username is already taken</string>
     <string name="registration_success">Successfully registered. Welcome to LockBox!</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="not_registered"><u>Don\'t have an account? Create one here.</u></string>
     <string name="login_progress">Logging you in.</string>
     <string name="invalid_credentials">Invalid credentials entered</string>

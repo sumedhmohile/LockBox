@@ -6,11 +6,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/pending_boxes_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/locked_gradient"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/colorContrastLight"
+        app:title="@string/pending_checkin"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         tools:context=".PendingBoxesFragment"
-        android:id="@+id/pending_boxes_layout">
+        android:id="@+id/pending_boxes_layout"
+        app:layout_constraintTop_toBottomOf="@+id/pending_boxes_toolbar"
+        app:layout_constraintLeft_toLeftOf="parent">
 
         <ListView
             android:id="@+id/pending_boxes_screen_listview"

@@ -2,13 +2,20 @@ package com.sumedh.lockbox;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -57,6 +64,13 @@ public class MyBoxesFragment extends Fragment {
         ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_boxes), getFragmentManager());
         BoxManager.loadBoxesForUser(user, view, getFragmentManager());
 
+        Toolbar toolbar = view.findViewById(R.id.my_boxes_toolbar);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.toobar_more));
+        setHasOptionsMenu(true);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+
         FloatingActionButton addBoxButton = view.findViewById(R.id.add_box_fab);
         addBoxButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,5 +91,19 @@ public class MyBoxesFragment extends Fragment {
 
         return view;
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.logout_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == (R.id.toolbar_logout)) {
+            AccountManager.logout(getActivity());
+        }
+        return true;
     }
 }
