@@ -2,10 +2,16 @@ package com.sumedh.lockbox;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -45,6 +51,12 @@ public class UnlockedBoxesFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_unlocked_boxes, container, false);
 
+        Toolbar toolbar = view.findViewById(R.id.unlocked_boxes_toolbar);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.toobar_more));
+        setHasOptionsMenu(true);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
         ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_unlocked_boxes), getFragmentManager());
         BoxManager.loadPublicBoxes(view, getFragmentManager());
 
@@ -58,5 +70,19 @@ public class UnlockedBoxesFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.logout_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == (R.id.toolbar_logout)) {
+            AccountManager.logout(getActivity());
+        }
+        return true;
     }
 }

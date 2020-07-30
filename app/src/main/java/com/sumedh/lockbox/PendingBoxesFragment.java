@@ -2,10 +2,16 @@ package com.sumedh.lockbox;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -51,6 +57,13 @@ public class PendingBoxesFragment extends Fragment {
         ProgressBarManager.showProgressBar(getResources().getString(R.string.loading_pending_boxes), getFragmentManager());
         BoxManager.loadPendingBoxesForUser(user, view, getFragmentManager());
 
+        Toolbar toolbar = view.findViewById(R.id.pending_boxes_toolbar);
+        toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.toobar_more));
+        toolbar.inflateMenu(R.menu.logout_menu);
+        setHasOptionsMenu(true);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
         SwipeRefreshLayout pendingBoxesLayout = view.findViewById(R.id.pending_boxes_layout);
         pendingBoxesLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         pendingBoxesLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -62,4 +75,19 @@ public class PendingBoxesFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.logout_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == (R.id.toolbar_logout)) {
+            AccountManager.logout(getActivity());
+        }
+        return true;
+    }
+
 }
