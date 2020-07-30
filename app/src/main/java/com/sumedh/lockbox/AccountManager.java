@@ -2,6 +2,7 @@ package com.sumedh.lockbox;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -188,5 +189,18 @@ public class AccountManager {
             editor.putString(Constants.FCM_TOKEN, token);
             editor.apply();
         }
+    }
+
+    public static void logout(Activity activity) {
+        Log.i(TAG, "Logging out");
+        SharedPreferences sharedPreferences = activity.getApplicationContext().getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear()
+              .commit();
+
+        Intent intent = new Intent(activity, SplashScreenActivity.class);
+        activity.startActivity(intent);
+        activity.finish();
+
     }
 }
