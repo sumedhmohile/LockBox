@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">LockBox</string>
     <string name="app_logo">LockBox Logo</string>
-    <string name="app_slogan">Protect your files. And Yourself</string>
+    <string name="app_slogan">Secure storage.\nJust as long as needed.</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
     <string name="password">Password</string>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/locked_gradient"
     tools:context=".LoginFragment">
 
     <ImageView
@@ -76,8 +76,8 @@
         android:text="@string/login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_screen_password"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@color/colorContrastLight"/>
+        android:background="@color/colorContrastLight"
+        android:textColor="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/login_screen_register_text"
